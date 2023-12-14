@@ -8,5 +8,5 @@ var dataSource = new typeorm.DataSource({
     password: "admin",
     database: "test",
     synchronize: true,
-    entities: [require("./entity/Post"), require("./entity/Category")],
+    entities: [require("./entity/User"), require("./entity/Event")],
 })
