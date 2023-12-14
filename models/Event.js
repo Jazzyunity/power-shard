@@ -1,8 +1,8 @@
 var EntitySchema = require("typeorm").EntitySchema
 
 module.exports = new EntitySchema({
-    name: "User",
-    tableName: "users",
+    name: "Event",
+    tableName: "events",
     columns: {
         id: {
             primary: true,
@@ -12,14 +12,23 @@ module.exports = new EntitySchema({
         name: {
             type: "varchar",
         },
-        email: {
+        description: {
             type: "varchar",
         },
-        password: {
+        start_date: {
+            type: "datetime",
+        },
+        end_date: {
+            type: "datetime",
+        },
+        location: {
             type: "varchar",
         },
-        role: {
-            type: "varchar",
+        organizer: {
+            type: "int",
+        },
+        attendees: {
+            type: "json",
         },
         status: {
             type: "varchar",
