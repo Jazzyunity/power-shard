@@ -1,43 +1,27 @@
-var EntitySchema = require("typeorm").EntitySchema
+const { DataTypes, Model } = require("sequelize");
+const sequelize = require("../util/database");
+const slugify = require("slugify");
 
-module.exports = new EntitySchema({
-    name: "Event",
-    tableName: "events",
-    columns: {
-        id: {
-            primary: true,
-            type: "int",
-            generated: true,
-        },
-        name: {
-            type: "varchar",
-        },
-        description: {
-            type: "varchar",
-        },
-        start_date: {
-            type: "datetime",
-        },
-        end_date: {
-            type: "datetime",
-        },
-        location: {
-            type: "varchar",
-        },
-        organizer: {
-            type: "int",
-        },
-        attendees: {
-            type: "json",
-        },
-        status: {
-            type: "varchar",
-        },
-        created_at: {
-            type: "datetime",
-        },
-        updated_at: {
-            type: "datetime",
-        },
-    },
-})
+const Event = sequelize.define("Event", {
+  slug: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  title: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  description: {
+    type: DataTypes.TEXT,
+  },
+  body: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
+});
+
+Event.beforeValidate((event) => {
+  event.slug = slugify(event.title, { lower: true });
+});
+
+module.exports = Event;
